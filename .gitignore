@@ -1,3 +1,10 @@
 DakarRally/.vs/
 DakarRally/DakarRally/obj/
 DakarRally/DakarRally/bin/
+DakarRally/Contracts/bin/
+DakarRally/Contracts/obj/
+DakarRally/DakarRally/db/localdb.db
+DakarRally/Entities/bin/
+DakarRally/Entities/obj/
+DakarRally/Repository/bin/
+DakarRally/Repository/obj/
