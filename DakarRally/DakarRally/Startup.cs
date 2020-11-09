@@ -41,6 +41,8 @@ namespace DakarRally
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
