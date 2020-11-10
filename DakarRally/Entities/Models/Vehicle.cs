@@ -20,12 +20,9 @@ namespace Entities.Models
         [Required(ErrorMessage = "Manucaturing date is required")]
         public DateTime ManucaturingDate { get; set; }
 
-        [Required(ErrorMessage = "Date created is required")] 
-        public DateTime DateCreated { get; set; }
-
         [Required]
         [ForeignKey(nameof(VehicleType))]
-        public int VehicleTypeId { get; set; }
+        public string VehicleTypeId { get; set; }
         [Required]
         public VehicleType VehicleType { get; set; }
 

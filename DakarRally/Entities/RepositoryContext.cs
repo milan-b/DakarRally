@@ -21,7 +21,6 @@ namespace Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VehicleType>().HasAlternateKey(vt => vt.Name);
             modelBuilder.SeedVehicleTypes();
         }
 

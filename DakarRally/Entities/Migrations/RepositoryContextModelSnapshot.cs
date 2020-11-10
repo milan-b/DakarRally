@@ -61,9 +61,6 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
@@ -81,8 +78,9 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("VehicleTypeId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("VehicleTypeId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -121,16 +119,11 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Models.VehicleType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.Property<byte>("MaxSpeed")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<byte>("PercentageOfHeavyMalfunctionsPerHour")
                         .HasColumnType("INTEGER");
@@ -145,18 +138,15 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Name");
+                    b.HasKey("Name");
 
                     b.ToTable("vehicle_type");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            MaxSpeed = (byte)140,
                             Name = "sportsCar",
+                            MaxSpeed = (byte)140,
                             PercentageOfHeavyMalfunctionsPerHour = (byte)2,
                             PercentageOfLightMalfunctionsPerHour = (byte)12,
                             RepairmentTimeInHovers = (byte)5,
@@ -164,9 +154,8 @@ namespace Entities.Migrations
                         },
                         new
                         {
-                            Id = 2,
-                            MaxSpeed = (byte)100,
                             Name = "terrainCar",
+                            MaxSpeed = (byte)100,
                             PercentageOfHeavyMalfunctionsPerHour = (byte)1,
                             PercentageOfLightMalfunctionsPerHour = (byte)3,
                             RepairmentTimeInHovers = (byte)5,
@@ -174,9 +163,8 @@ namespace Entities.Migrations
                         },
                         new
                         {
-                            Id = 3,
-                            MaxSpeed = (byte)80,
                             Name = "truck",
+                            MaxSpeed = (byte)80,
                             PercentageOfHeavyMalfunctionsPerHour = (byte)4,
                             PercentageOfLightMalfunctionsPerHour = (byte)6,
                             RepairmentTimeInHovers = (byte)7,
@@ -184,9 +172,8 @@ namespace Entities.Migrations
                         },
                         new
                         {
-                            Id = 4,
-                            MaxSpeed = (byte)85,
                             Name = "crossMotorcycle",
+                            MaxSpeed = (byte)85,
                             PercentageOfHeavyMalfunctionsPerHour = (byte)2,
                             PercentageOfLightMalfunctionsPerHour = (byte)3,
                             RepairmentTimeInHovers = (byte)3,
@@ -194,9 +181,8 @@ namespace Entities.Migrations
                         },
                         new
                         {
-                            Id = 5,
-                            MaxSpeed = (byte)130,
                             Name = "sportMotorcycle",
+                            MaxSpeed = (byte)130,
                             PercentageOfHeavyMalfunctionsPerHour = (byte)10,
                             PercentageOfLightMalfunctionsPerHour = (byte)18,
                             RepairmentTimeInHovers = (byte)3,

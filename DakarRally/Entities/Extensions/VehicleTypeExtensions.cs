@@ -14,7 +14,6 @@ namespace Entities.Extensions
             modelBuilder.Entity<VehicleType>().HasData(
                 new VehicleType
                 {
-                    Id = 1,
                     Name = "sportsCar",
                     PercentageOfLightMalfunctionsPerHour = 12,
                     PercentageOfHeavyMalfunctionsPerHour = 2,
@@ -24,7 +23,6 @@ namespace Entities.Extensions
                 },
                 new VehicleType
                 {
-                    Id = 2,
                     Name = "terrainCar",
                     PercentageOfLightMalfunctionsPerHour = 3,
                     PercentageOfHeavyMalfunctionsPerHour = 1,
@@ -34,7 +32,6 @@ namespace Entities.Extensions
                 },
                 new VehicleType
                 {
-                    Id = 3,
                     Name = "truck",
                     PercentageOfLightMalfunctionsPerHour = 6,
                     PercentageOfHeavyMalfunctionsPerHour = 4,
@@ -44,7 +41,6 @@ namespace Entities.Extensions
                 },
                 new VehicleType
                 {
-                    Id = 4,
                     Name = "crossMotorcycle",
                     PercentageOfLightMalfunctionsPerHour = 3,
                     PercentageOfHeavyMalfunctionsPerHour = 2,
@@ -54,7 +50,6 @@ namespace Entities.Extensions
                 },
                 new VehicleType
                 {
-                    Id = 5,
                     Name = "sportMotorcycle",
                     PercentageOfLightMalfunctionsPerHour = 18,
                     PercentageOfHeavyMalfunctionsPerHour = 10,
