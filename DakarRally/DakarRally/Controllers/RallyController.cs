@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Contracts;
 using DakarRally.ActionFilters;
@@ -39,26 +40,28 @@ namespace DakarRally.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(VehicleValidationFilter))]
         public async Task<IActionResult> AddVehicleToRace([FromBody] VehicleDTO vehicleDTO)
         {
-            if(!_repository.Race.FindAll().Any(o => o.Id == vehicleDTO.RaceId))
-            {
-                return BadRequest($"Race with id:{vehicleDTO.RaceId} does not exist.");
-            }
-            if(_repository.Simulation.FindAll().Any(o => o.RaceId == vehicleDTO.RaceId))
-            {
-                return BadRequest("Vehicle can be added only to races that are not started.");
-            }
-            var vehicleTypes = _repository.VehicleType.FindAll().Select(o => o.Name);
-            if (!vehicleTypes.Any(n => n == vehicleDTO.VehicleType))
-            {
-                return BadRequest($"Bad vehicle type! \nAvailable vehicle types are:\n\n{vehicleTypes.Join(",\n")}");
-            }
-
             var vehicle = vehicleDTO.ToDAO();
             _repository.Vehicle.Create(vehicle);
             await _repository.Save();
             return Created("", vehicle.ToDTO());
+        }
+
+        [HttpPut]
+        [ServiceFilter(typeof(VehicleValidationFilter))]
+        public async Task<IActionResult> UpdateVehicle([FromBody] VehicleDTO vehicleDTO)
+        {
+            var vehicle = _repository.Vehicle.FindByCondition(o => o.Id == vehicleDTO.Id).FirstOrDefault();
+            if(vehicle == null)
+            {
+                return BadRequest($"Vehicle with id:{vehicleDTO.Id} does not exist.");
+            }
+            vehicle.Map(vehicleDTO.ToDAO());
+            _repository.Vehicle.Update(vehicle);
+            await _repository.Save();
+            return NoContent();
         }
 
 

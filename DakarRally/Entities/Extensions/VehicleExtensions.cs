@@ -17,7 +17,7 @@ namespace Entities.Extensions
                 ManucaturingDate = vehicle.ManucaturingDate,
                 Model = vehicle.Model,
                 TeamName = vehicle.TeamName,
-                VehicleType = vehicle.VehicleTypeId
+                VehicleType = vehicle.VehicleTypeName
             };
         }
 
@@ -30,8 +30,17 @@ namespace Entities.Extensions
                 ManucaturingDate = vehicleDTO.ManucaturingDate,
                 Model = vehicleDTO.Model,
                 TeamName = vehicleDTO.TeamName,
-                VehicleTypeId = vehicleDTO.VehicleType
+                VehicleTypeName = vehicleDTO.VehicleType
             };
+        }
+
+        public static void Map(this Vehicle dbVehicle, Vehicle vehicle)
+        {
+            dbVehicle.Model = vehicle.Model;
+            dbVehicle.RaceId = vehicle.RaceId;
+            dbVehicle.VehicleTypeName = vehicle.VehicleTypeName;
+            dbVehicle.TeamName = vehicle.TeamName;
+            dbVehicle.ManucaturingDate = vehicle.ManucaturingDate;
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Entities.Migrations
                     TeamName = table.Column<string>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     ManucaturingDate = table.Column<DateTime>(nullable: false),
-                    VehicleTypeId = table.Column<string>(nullable: false),
+                    VehicleTypeName = table.Column<string>(nullable: false),
                     RaceId = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -81,8 +81,8 @@ namespace Entities.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_vehicle_vehicle_type_VehicleTypeId",
-                        column: x => x.VehicleTypeId,
+                        name: "FK_vehicle_vehicle_type_VehicleTypeName",
+                        column: x => x.VehicleTypeName,
                         principalTable: "vehicle_type",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
@@ -146,9 +146,9 @@ namespace Entities.Migrations
                 column: "RaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vehicle_VehicleTypeId",
+                name: "IX_vehicle_VehicleTypeName",
                 table: "vehicle",
-                column: "VehicleTypeId");
+                column: "VehicleTypeName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_vehicle_statistic_VehicleId",

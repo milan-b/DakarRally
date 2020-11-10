@@ -22,7 +22,7 @@ namespace Entities.Models
 
         [Required]
         [ForeignKey(nameof(VehicleType))]
-        public string VehicleTypeId { get; set; }
+        public string VehicleTypeName { get; set; }
         [Required]
         public VehicleType VehicleType { get; set; }
 

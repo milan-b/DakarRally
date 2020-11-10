@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201110202606_InitialMigration")]
+    [Migration("20201110225303_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,7 +80,7 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("VehicleTypeId")
+                    b.Property<string>("VehicleTypeName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -88,7 +88,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("RaceId");
 
-                    b.HasIndex("VehicleTypeId");
+                    b.HasIndex("VehicleTypeName");
 
                     b.ToTable("vehicle");
                 });
@@ -211,7 +211,7 @@ namespace Entities.Migrations
 
                     b.HasOne("Entities.Models.VehicleType", "VehicleType")
                         .WithMany()
-                        .HasForeignKey("VehicleTypeId")
+                        .HasForeignKey("VehicleTypeName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
