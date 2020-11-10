@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities.Models
 {
     [Table("vehicle_type")] 
-    public class VehicleType : IEntity
+    public class VehicleType
     {
         [Key]
         public int Id { get; set; }

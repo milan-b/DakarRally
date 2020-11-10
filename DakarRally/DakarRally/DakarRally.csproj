@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="db\**" />
+    <Compile Remove="logs\**" />
     <Content Remove="db\**" />
+    <Content Remove="logs\**" />
     <EmbeddedResource Remove="db\**" />
+    <EmbeddedResource Remove="logs\**" />
     <None Remove="db\**" />
+    <None Remove="logs\**" />
   </ItemGroup>
 
   <ItemGroup>

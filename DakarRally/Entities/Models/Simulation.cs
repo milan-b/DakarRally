@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Entities.Models
 {
     [Table("simulation")]
-    public class Simulation : IEntity
+    public class Simulation
     {
         [Key]
         public int Id { get; set; }

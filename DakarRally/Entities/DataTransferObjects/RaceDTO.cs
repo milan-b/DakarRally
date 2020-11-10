@@ -3,15 +3,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects
 {
-    [Table("race")] 
-    public class Race
+    public class RaceDTO: IEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required(ErrorMessage = "Year is required")]
-        public ushort Year { get; set; }
+        public ushort? Year { get; set; }
     }
 }
