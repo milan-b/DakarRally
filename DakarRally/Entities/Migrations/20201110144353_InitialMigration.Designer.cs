@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201109223957_InitialMigration")]
+    [Migration("20201110144353_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,9 +127,8 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("MaxSpeed")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<byte>("MaxSpeed")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -150,7 +149,61 @@ namespace Entities.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Name");
+
                     b.ToTable("vehicle_type");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaxSpeed = (byte)140,
+                            Name = "sportsCar",
+                            PercentageOfHeavyMalfunctionsPerHour = (byte)2,
+                            PercentageOfLightMalfunctionsPerHour = (byte)12,
+                            RepairmentTimeInHovers = (byte)5,
+                            SuperType = "car"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MaxSpeed = (byte)100,
+                            Name = "terrainCar",
+                            PercentageOfHeavyMalfunctionsPerHour = (byte)1,
+                            PercentageOfLightMalfunctionsPerHour = (byte)3,
+                            RepairmentTimeInHovers = (byte)5,
+                            SuperType = "car"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MaxSpeed = (byte)80,
+                            Name = "truck",
+                            PercentageOfHeavyMalfunctionsPerHour = (byte)4,
+                            PercentageOfLightMalfunctionsPerHour = (byte)6,
+                            RepairmentTimeInHovers = (byte)7,
+                            SuperType = "truck"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MaxSpeed = (byte)85,
+                            Name = "crossMotorcycle",
+                            PercentageOfHeavyMalfunctionsPerHour = (byte)2,
+                            PercentageOfLightMalfunctionsPerHour = (byte)3,
+                            RepairmentTimeInHovers = (byte)3,
+                            SuperType = "motorcycle"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MaxSpeed = (byte)130,
+                            Name = "sportMotorcycle",
+                            PercentageOfHeavyMalfunctionsPerHour = (byte)10,
+                            PercentageOfLightMalfunctionsPerHour = (byte)18,
+                            RepairmentTimeInHovers = (byte)3,
+                            SuperType = "motorcycle"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Simulation", b =>

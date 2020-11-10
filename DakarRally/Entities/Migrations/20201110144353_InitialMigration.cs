@@ -27,7 +27,7 @@ namespace Entities.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
-                    MaxSpeed = table.Column<string>(nullable: false),
+                    MaxSpeed = table.Column<byte>(nullable: false),
                     RepairmentTimeInHovers = table.Column<byte>(nullable: false),
                     PercentageOfLightMalfunctionsPerHour = table.Column<byte>(nullable: false),
                     PercentageOfHeavyMalfunctionsPerHour = table.Column<byte>(nullable: false),
@@ -36,6 +36,7 @@ namespace Entities.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_vehicle_type", x => x.Id);
+                    table.UniqueConstraint("AK_vehicle_type_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,6 +113,31 @@ namespace Entities.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "vehicle_type",
+                columns: new[] { "Id", "MaxSpeed", "Name", "PercentageOfHeavyMalfunctionsPerHour", "PercentageOfLightMalfunctionsPerHour", "RepairmentTimeInHovers", "SuperType" },
+                values: new object[] { 1, (byte)140, "sportsCar", (byte)2, (byte)12, (byte)5, "car" });
+
+            migrationBuilder.InsertData(
+                table: "vehicle_type",
+                columns: new[] { "Id", "MaxSpeed", "Name", "PercentageOfHeavyMalfunctionsPerHour", "PercentageOfLightMalfunctionsPerHour", "RepairmentTimeInHovers", "SuperType" },
+                values: new object[] { 2, (byte)100, "terrainCar", (byte)1, (byte)3, (byte)5, "car" });
+
+            migrationBuilder.InsertData(
+                table: "vehicle_type",
+                columns: new[] { "Id", "MaxSpeed", "Name", "PercentageOfHeavyMalfunctionsPerHour", "PercentageOfLightMalfunctionsPerHour", "RepairmentTimeInHovers", "SuperType" },
+                values: new object[] { 3, (byte)80, "truck", (byte)4, (byte)6, (byte)7, "truck" });
+
+            migrationBuilder.InsertData(
+                table: "vehicle_type",
+                columns: new[] { "Id", "MaxSpeed", "Name", "PercentageOfHeavyMalfunctionsPerHour", "PercentageOfLightMalfunctionsPerHour", "RepairmentTimeInHovers", "SuperType" },
+                values: new object[] { 4, (byte)85, "crossMotorcycle", (byte)2, (byte)3, (byte)3, "motorcycle" });
+
+            migrationBuilder.InsertData(
+                table: "vehicle_type",
+                columns: new[] { "Id", "MaxSpeed", "Name", "PercentageOfHeavyMalfunctionsPerHour", "PercentageOfLightMalfunctionsPerHour", "RepairmentTimeInHovers", "SuperType" },
+                values: new object[] { 5, (byte)130, "sportMotorcycle", (byte)10, (byte)18, (byte)3, "motorcycle" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_simulation_RaceId",

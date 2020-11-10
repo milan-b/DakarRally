@@ -7,7 +7,7 @@ namespace Entities.DataTransferObjects
 {
     public class RaceDTO: IEntity
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Year is required")]
         public ushort? Year { get; set; }

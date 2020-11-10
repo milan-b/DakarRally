@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Extensions;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entities
@@ -15,6 +16,14 @@ namespace Entities
         public DbSet<VehicleType> VehicleTypes { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Simulation> Simulations { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleType>().HasAlternateKey(vt => vt.Name);
+            modelBuilder.SeedVehicleTypes();
+        }
 
     }
 }

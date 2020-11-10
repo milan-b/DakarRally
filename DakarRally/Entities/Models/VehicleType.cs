@@ -15,7 +15,7 @@ namespace Entities.Models
         public string Name { get; set; }
 
         [Required]
-        public string MaxSpeed { get; set; }
+        public byte MaxSpeed { get; set; }
 
         [Required]
         public byte RepairmentTimeInHovers { get; set; }
