@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DakarRally.ActionFilters;
 using DakarRally.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace DakarRally
             services.ConfigureCors();
             services.ConfigureDBContext(Configuration);
             services.ConfigureRepositoryWrapper();
+
+            services.AddScoped<VehicleValidationFilter>();
 
             services.AddControllers();
         }
