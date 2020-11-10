@@ -35,7 +35,7 @@ namespace DakarRally.Controllers
             var race = raceDTO.ToDAO();
 
             _repository.Race.Create(race);
-            await _repository.Save();
+            await _repository.SaveAsync();
             return Created("",race.ToDTO());
         }
 
@@ -45,7 +45,7 @@ namespace DakarRally.Controllers
         {
             var vehicle = vehicleDTO.ToDAO();
             _repository.Vehicle.Create(vehicle);
-            await _repository.Save();
+            await _repository.SaveAsync();
             return Created("", vehicle.ToDTO());
         }
 
@@ -56,11 +56,24 @@ namespace DakarRally.Controllers
             var vehicle = _repository.Vehicle.FindByCondition(o => o.Id == vehicleDTO.Id).FirstOrDefault();
             if(vehicle == null)
             {
-                return BadRequest($"Vehicle with id:{vehicleDTO.Id} does not exist.");
+                return NotFound($"Vehicle with id:{vehicleDTO.Id} does not exist.");
             }
             vehicle.Map(vehicleDTO.ToDAO());
             _repository.Vehicle.Update(vehicle);
-            await _repository.Save();
+            await _repository.SaveAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int:min(1)}")]
+        public async Task<IActionResult> RemoveVehicle(int id)
+        {
+            var vehicle = _repository.Vehicle.FindByCondition(o => o.Id == id).FirstOrDefault();
+            if (vehicle == null)
+            {
+                return NotFound($"Vehicle with id:{id} does not exist.");
+            }
+            _repository.Vehicle.SoftDelete(vehicle);
+            await _repository.SaveAsync();
             return NoContent();
         }
 

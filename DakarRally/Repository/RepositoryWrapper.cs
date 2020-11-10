@@ -76,7 +76,7 @@ namespace Repository
             }
         }
         
-        public async Task Save() 
+        public async Task SaveAsync() 
         {
             await _repoContext.SaveChangesAsync();
         } 

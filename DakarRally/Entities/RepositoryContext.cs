@@ -22,6 +22,7 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.SeedVehicleTypes();
+            modelBuilder.Entity<Vehicle>().HasQueryFilter(v => !v.IsDeleted);
         }
 
     }

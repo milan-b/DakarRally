@@ -13,6 +13,6 @@ namespace Contracts
         IRaceRepository Race { get; }
         ISimulationRepository Simulation { get; }
 
-        Task Save(); 
+        Task SaveAsync(); 
     }
 }

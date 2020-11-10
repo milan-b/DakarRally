@@ -9,6 +9,12 @@ namespace Repository
         public VehicleRepository(RepositoryContext repositoryContext) 
             : base(repositoryContext) 
         { 
-        } 
+        }
+
+        public void SoftDelete(Vehicle vehicle)
+        {
+            vehicle.IsDeleted = true;
+            RepositoryContext.Set<Vehicle>().Update(vehicle);
+        }
     }
 }
