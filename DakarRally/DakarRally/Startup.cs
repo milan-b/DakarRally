@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Simulation;
 
 namespace DakarRally
 {
@@ -25,6 +26,10 @@ namespace DakarRally
             services.ConfigureRepositoryWrapper();
 
             services.AddScoped<VehicleValidationFilter>();
+
+            services.AddHostedService<HostedService>();
+            services.AddSingleton<ISimulatorManager, SimulationManager>();
+            services.AddSingleton<ISimulationWorker, SimulationWorker>();
 
             services.AddControllers();
         }

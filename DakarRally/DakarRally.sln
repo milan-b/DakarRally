@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DakarRally", "DakarRally\DakarRally.csproj", "{BE356A4C-44EF-4622-A3B1-3B9D7ABA038F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DakarRally", "DakarRally\DakarRally.csproj", "{BE356A4C-44EF-4622-A3B1-3B9D7ABA038F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{C413E454-C769-4E8C-829E-2A669689D989}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{61916351-7BDC-439A-92A0-4180A1EF4B59}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{21EDA76B-5272-40F7-93E1-75FAB8CF062D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulation", "Simulation\Simulation.csproj", "{BF44E2BC-46B4-452A-B7E0-1660F859CF0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{21EDA76B-5272-40F7-93E1-75FAB8CF062D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21EDA76B-5272-40F7-93E1-75FAB8CF062D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21EDA76B-5272-40F7-93E1-75FAB8CF062D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF44E2BC-46B4-452A-B7E0-1660F859CF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF44E2BC-46B4-452A-B7E0-1660F859CF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF44E2BC-46B4-452A-B7E0-1660F859CF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF44E2BC-46B4-452A-B7E0-1660F859CF0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
