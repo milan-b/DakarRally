@@ -22,18 +22,24 @@ namespace Simulation
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await SimulateRally(stoppingToken);
             while (!stoppingToken.IsCancellationRequested)
             {
                 await _simulationManager.SignalStart(stoppingToken);
 
-                try
-                {
-                    await _simulationWorker.SimulateRally(stoppingToken);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error occurred executing simulation.");
-                }
+                await SimulateRally(stoppingToken);
+            }
+        }
+
+        private async Task SimulateRally(CancellationToken stoppingToken)
+        {
+            try
+            {
+                await _simulationWorker.SimulateRally(stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred executing simulation.");
             }
         }
 

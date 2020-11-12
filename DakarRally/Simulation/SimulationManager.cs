@@ -34,9 +34,10 @@ namespace Simulation
 
                 lock (_synchronizationObject)
                 {
-                    if (repository.Simulation.FindAll().Any(o => o.EndTime == null))
+                    if (repository.Simulation.FindAll().Any(o => o.EndTime == null || o.RaceId == raceId))
                     {
-                        message = "There is some simulation that already running.";
+                        message = "Simulation can not be started.\nThere is some simulation that's already running or simulation for this race is " +
+                            "already executed.";
                         return false;
                     }
                     else
