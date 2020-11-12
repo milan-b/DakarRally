@@ -56,7 +56,6 @@ namespace Simulation
                 {
                     var vehicles = repository.Vehicle.FindByCondition(o => o.RaceId == simulation.RaceId && o.VehicleStatistic.FinishTime == null)
                                 .Include(o => o.VehicleStatistic)
-                                //.Include(o => o.VehicleType)
                                 .ToList();
                     var vehicleTypes = repository.VehicleType.FindAll().ToList();
                     while (!stoppingToken.IsCancellationRequested && simulation.EndTime == null)
@@ -128,6 +127,7 @@ namespace Simulation
             }
             else
             {
+                vehicle.VehicleStatistic.Status = VehicleStatus.Running;
                 UpdateSpeedAndDistance(vehicle, random, vehicleType);
                 if (vehicle.VehicleStatistic.Distance > _simConf.RaceLength)
                 {

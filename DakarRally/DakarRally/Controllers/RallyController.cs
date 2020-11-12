@@ -10,6 +10,7 @@ using Entities.DataTransferObjects;
 using Entities.Extensions;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -105,6 +106,42 @@ namespace DakarRally.Controllers
                 return BadRequest(message);
             };
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLeaderboard()
+        {
+            var simulation = _repository.Simulation.FindByCondition(o => o.EndTime == null).FirstOrDefault();
+            if(simulation == null)
+            {
+                return BadRequest("There is no race that is running.");
+            }
+            var vehicles = await GetLeaderbordHelper(simulation.RaceId).ToListAsync();
+            return Ok(GetLeaderbordPresentationHelper(vehicles));
+        }
+
+
+        #region Helpers
+        private IOrderedQueryable<Vehicle> GetLeaderbordHelper(int raceId)
+        {
+            return _repository.Vehicle.FindByCondition(o => o.RaceId == raceId).Include(o => o.VehicleStatistic)
+                .OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance);
+        }
+
+        private List<LeaderbordItemDTO> GetLeaderbordPresentationHelper(List<Vehicle> vehicles)
+        {
+            return vehicles.Select((item, index) => new LeaderbordItemDTO
+            {
+                Position = index + 1,
+                Distance = item.VehicleStatistic.Distance,
+                Malfunctions = item.VehicleStatistic.Malfunctions,
+                Status = item.VehicleStatistic.Status,
+                FinishTime = item.VehicleStatistic.FinishTime,
+                TeamName = item.TeamName,
+                Model = item.Model,
+                Type = item.VehicleTypeName
+            }).ToList();
+        }
+        #endregion
 
 
     }
