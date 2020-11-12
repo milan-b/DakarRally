@@ -1,4 +1,5 @@
-﻿using Entities.Extensions;
+﻿using Entities.Enums;
+using Entities.Extensions;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,9 +7,9 @@ namespace Entities
 {
     public class RepositoryContext : DbContext
     {
-        public RepositoryContext(DbContextOptions options) 
-            : base(options) 
-        { 
+        public RepositoryContext(DbContextOptions options)
+            : base(options)
+        {
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -21,6 +22,8 @@ namespace Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<VehicleStatistic>().Property(p => p.Status).HasDefaultValue(VehicleStatus.ReadyToStart);
+
             modelBuilder.SeedVehicleTypes();
             modelBuilder.Entity<Vehicle>().HasQueryFilter(v => !v.IsDeleted);
         }

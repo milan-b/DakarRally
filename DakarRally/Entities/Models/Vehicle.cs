@@ -32,6 +32,7 @@ namespace Entities.Models
         [Required]
         public Race Race { get; set; }
 
+        [Required]
         public VehicleStatistic VehicleStatistic { get; set; }
 
 

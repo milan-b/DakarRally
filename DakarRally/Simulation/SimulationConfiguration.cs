@@ -6,8 +6,9 @@ namespace Simulation
 {
     public class SimulationConfiguration
     {
-        public const string Simulation = "Simultion";
+        public const string Simulation = "Simulation";
         public int DeadlineForRealTime { get; set; }
-        public int RaceLength { get; set; }
+        public uint RaceLength { get; set; }
+        public ushort MaxSpeedChange { get; set; }
     }
 }

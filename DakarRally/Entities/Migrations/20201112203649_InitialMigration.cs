@@ -96,7 +96,10 @@ namespace Entities.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Distance = table.Column<double>(nullable: false),
                     Malfunctions = table.Column<ushort>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
+                    FinishTime = table.Column<DateTime>(nullable: true),
+                    CurrentSpeed = table.Column<ushort>(nullable: false),
+                    HournsUtilFixed = table.Column<double>(nullable: false),
+                    Status = table.Column<string>(nullable: false, defaultValue: "ReadyToStart"),
                     VehicleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
