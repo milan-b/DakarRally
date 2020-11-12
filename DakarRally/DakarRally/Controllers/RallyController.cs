@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Contracts;
+using Contracts.Simulation;
 using DakarRally.ActionFilters;
 using Entities.DataTransferObjects;
 using Entities.Extensions;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Simulation;
 
 namespace DakarRally.Controllers
 {
@@ -22,11 +24,13 @@ namespace DakarRally.Controllers
 
         private IRepositoryWrapper _repository;
         private readonly ILogger<RallyController> _logger;
+        private readonly ISimulatorManager _simulationManager;
 
-        public RallyController(ILogger<RallyController> logger, IRepositoryWrapper repository)
+        public RallyController(ILogger<RallyController> logger, IRepositoryWrapper repository, ISimulatorManager simulationManager)
         {
             _logger = logger;
             _repository = repository;
+            _simulationManager = simulationManager;
         }
 
         [HttpPost]
@@ -44,6 +48,7 @@ namespace DakarRally.Controllers
         public async Task<IActionResult> AddVehicleToRace([FromBody] VehicleDTO vehicleDTO)
         {
             var vehicle = vehicleDTO.ToDAO();
+            vehicle.VehicleStatistic = new VehicleStatistic();
             _repository.Vehicle.Create(vehicle);
             await _repository.SaveAsync();
             return Created("", vehicle.ToDTO());
@@ -75,6 +80,30 @@ namespace DakarRally.Controllers
             _repository.Vehicle.SoftDelete(vehicle);
             await _repository.SaveAsync();
             return NoContent();
+        }
+
+        [HttpGet("{id:int:min(1)}")]
+        public async Task<IActionResult> StartRace(int id)
+        {
+            
+            var race = _repository.Race.FindByCondition(o => o.Id == id).FirstOrDefault();
+            if (race == null)
+            {
+                return NotFound($"Race with id:{id} does not exist.");
+            }
+            if (_repository.Simulation.FindAll().Any(o => o.RaceId == id))
+            {
+                return BadRequest("This race was already simulated.");
+            }
+            string message;
+            if (_simulationManager.StartSimulation(id, out message))
+            {
+                return Ok(message);
+            }
+            else
+            {
+                return BadRequest(message);
+            };
         }
 
 
