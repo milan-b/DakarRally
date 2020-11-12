@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201110225303_InitialMigration")]
+    [Migration("20201112205544_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,14 +99,25 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<ushort>("CurrentSpeed")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Distance")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("FinishTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("HournsUtilFixed")
                         .HasColumnType("REAL");
 
                     b.Property<ushort>("Malfunctions")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("ReadyToStart");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("INTEGER");

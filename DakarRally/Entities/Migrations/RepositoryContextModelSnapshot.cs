@@ -97,14 +97,25 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<ushort>("CurrentSpeed")
+                        .HasColumnType("INTEGER");
+
                     b.Property<double>("Distance")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime?>("FinishTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("HournsUtilFixed")
                         .HasColumnType("REAL");
 
                     b.Property<ushort>("Malfunctions")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("ReadyToStart");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("INTEGER");
