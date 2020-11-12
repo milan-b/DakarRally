@@ -1,12 +1,10 @@
 ﻿using Contracts;
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,10 +19,12 @@ namespace Simulation
     {
         private readonly ILogger<SimulationWorker> _logger;
         private readonly IServiceProvider _services;
-        public SimulationWorker(ILogger<SimulationWorker> logger, IServiceProvider services)
+        public readonly SimulationConfiguration _simulationConfiguration;
+        public SimulationWorker(ILogger<SimulationWorker> logger, IServiceProvider services, IConfiguration configuration)
         {
             _logger = logger;
             _services = services;
+            configuration.GetSection(SimulationConfiguration.Simulation).Bind(_simulationConfiguration);
         }
 
         public async Task SimulateRally(CancellationToken stoppingToken)
@@ -45,10 +45,21 @@ namespace Simulation
                                 .Include(o => o.VehicleType).ToList();
                     while (!stoppingToken.IsCancellationRequested)
                     {
+                        var iterationStarted = DateTime.Now;
 
-                        _logger.LogInformation("working...");
-                        await Task.Delay(2000);
-                        
+                        //do work
+
+                        var executionTime = (DateTime.Now - iterationStarted).TotalMilliseconds;
+                        if (executionTime > _simulationConfiguration.DeadlineForRealTime)
+                        {
+                            _logger.LogError($"Real-time deadline is not meet.\n" +
+                                $"Current iteration lasted for {executionTime}ms.\n" +
+                                $"Real-time deadline is {_simulationConfiguration.DeadlineForRealTime}");
+                        }
+                        else
+                        {
+                            await Task.Delay(_simulationConfiguration.DeadlineForRealTime - (int)Math.Ceiling(executionTime));
+                        }
                     }
                 }
                 

@@ -24,7 +24,7 @@ namespace DakarRally.Extensions
 
         public static void ConfigureDBContext(this IServiceCollection services, IConfiguration config) 
         { 
-            var connectionString = config["ConnectionStrings:local"]; 
+            var connectionString = config["ConnectionStrings:Local"]; 
             services.AddDbContext<RepositoryContext>(o => o.UseSqlite(connectionString));
         }
 
