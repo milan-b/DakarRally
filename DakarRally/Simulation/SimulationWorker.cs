@@ -34,7 +34,7 @@ namespace Simulation
             configuration.GetSection(SimulationConfiguration.Simulation).Bind(_simConf);
 
             DEADLINE_IN_HOURS = (double)_simConf.DeadlineForRealTime / MS_TO_HOUR_DIFERENCE;
-            HALF_OF_MAX_SPEED_CHANGE = (int)Math.Ceiling(_simConf.MaxSpeedChange * 0.5);
+            HALF_OF_MAX_SPEED_CHANGE = _simConf.MaxSpeedChange / 2;
             //NOTE Could create some fractional error in some cases
             INVERTED_DEADLINE_IN_HOURS = MS_TO_HOUR_DIFERENCE / _simConf.DeadlineForRealTime;
             MAX_RANDOM_FOR_PERCENTAGE = 100 * INVERTED_DEADLINE_IN_HOURS;

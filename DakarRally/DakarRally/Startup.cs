@@ -27,6 +27,7 @@ namespace DakarRally
             services.ConfigureRepositoryWrapper();
 
             services.AddScoped<VehicleValidationFilter>();
+            services.AddScoped<ActiveRaceValidationFilter>();
 
             services.AddHostedService<HostedService>();
             services.AddSingleton<ISimulatorManager, SimulationManager>();

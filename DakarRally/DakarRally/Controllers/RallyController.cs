@@ -108,24 +108,35 @@ namespace DakarRally.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ActiveRaceValidationFilter))]
         public async Task<IActionResult> GetLeaderboard()
         {
-            var simulation = _repository.Simulation.FindByCondition(o => o.EndTime == null).FirstOrDefault();
-            if(simulation == null)
-            {
-                return BadRequest("There is no race that is running.");
-            }
-            var vehicles = await GetLeaderbordHelper(simulation.RaceId).ToListAsync();
+            var simulation = HttpContext.Items["simulation"] as Entities.Models.Simulation;
+            var vehicles = await _repository.Vehicle.FindByCondition(o => o.RaceId == simulation.RaceId).Include(o => o.VehicleStatistic)
+                .OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance).ToListAsync();
             return Ok(GetLeaderbordPresentationHelper(vehicles));
         }
 
+        [HttpGet("{superType}")]
+        [ServiceFilter(typeof(ActiveRaceValidationFilter))]
+        public async Task<IActionResult> GetLeaderboard(string superType)
+        {
+            var superTypes = await _repository.VehicleType.FindAll().Select(o => o.SuperType).Distinct().ToListAsync();
+            if (!superTypes.Any(n => n == superType))
+            {
+                return BadRequest($"Bad vehicle super type! \nAvailable vehicle super types are:\n\n{superTypes.Join(",\n")}");
+            }
+            var simulation = HttpContext.Items["simulation"] as Entities.Models.Simulation;
+            var vehicles = await _repository.Vehicle.FindByCondition(o => o.RaceId == simulation.RaceId && o.VehicleType.SuperType == superType)
+                .Include(o => o.VehicleStatistic).OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance)
+                .ToListAsync();
+            return Ok(GetLeaderbordPresentationHelper(vehicles));
+        }
+
+        
+
 
         #region Helpers
-        private IOrderedQueryable<Vehicle> GetLeaderbordHelper(int raceId)
-        {
-            return _repository.Vehicle.FindByCondition(o => o.RaceId == raceId).Include(o => o.VehicleStatistic)
-                .OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance);
-        }
 
         private List<LeaderbordItemDTO> GetLeaderbordPresentationHelper(List<Vehicle> vehicles)
         {
