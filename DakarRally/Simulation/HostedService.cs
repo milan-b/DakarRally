@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Contracts.Simulation;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 

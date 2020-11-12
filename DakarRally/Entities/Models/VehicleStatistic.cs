@@ -24,9 +24,7 @@ namespace Entities.Models
         [DefaultValue(0)]
         public double HournsUtilFixed { get; set; }
 
-        [Required]
-        [DefaultValue(VehicleStatus.ReadyToStart)]
-        public string Status { get; set; } = VehicleStatus.ReadyToStart;
+        public string Status { get; set; } 
 
         [ForeignKey(nameof(Vehicle))]
         public int VehicleId { get; set; }

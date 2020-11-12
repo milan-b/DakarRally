@@ -5,15 +5,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Contracts.Simulation;
 
 namespace Simulation
 {
-    public interface ISimulatorManager
-    {
-        bool StartSimulation(int raceId, out string message);
-
-        Task SignalStart(CancellationToken cancellationToken);
-    }
 
     public class SimulationManager : ISimulatorManager
     {

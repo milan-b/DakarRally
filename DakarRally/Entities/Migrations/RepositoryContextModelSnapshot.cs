@@ -113,7 +113,6 @@ namespace Entities.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasDefaultValue("ReadyToStart");

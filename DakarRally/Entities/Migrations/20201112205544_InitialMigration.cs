@@ -99,7 +99,7 @@ namespace Entities.Migrations
                     FinishTime = table.Column<DateTime>(nullable: true),
                     CurrentSpeed = table.Column<ushort>(nullable: false),
                     HournsUtilFixed = table.Column<double>(nullable: false),
-                    Status = table.Column<string>(nullable: false, defaultValue: "ReadyToStart"),
+                    Status = table.Column<string>(nullable: true, defaultValue: "ReadyToStart"),
                     VehicleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

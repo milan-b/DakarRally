@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201112203649_InitialMigration")]
+    [Migration("20201112205544_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,7 +115,6 @@ namespace Entities.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasDefaultValue("ReadyToStart");

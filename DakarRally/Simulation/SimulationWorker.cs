@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.Simulation;
 using Entities.Enums;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,7 @@ using System.Threading.Tasks;
 
 namespace Simulation
 {
-    public interface ISimulationWorker
-    {
-        Task SimulateRally(CancellationToken stoppingToken);
-    }
+    
 
     public class SimulationWorker: ISimulationWorker
     {

@@ -1,3 +1,4 @@
+using Contracts.Simulation;
 using DakarRally.ActionFilters;
 using DakarRally.Extensions;
 using Microsoft.AspNetCore.Builder;
