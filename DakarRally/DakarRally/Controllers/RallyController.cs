@@ -112,8 +112,7 @@ namespace DakarRally.Controllers
         public async Task<IActionResult> GetLeaderboard()
         {
             var simulation = HttpContext.Items["simulation"] as Entities.Models.Simulation;
-            var vehicles = await _repository.Vehicle.FindByCondition(o => o.RaceId == simulation.RaceId).Include(o => o.VehicleStatistic)
-                .OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance).ToListAsync();
+            var vehicles = await _repository.Vehicle.LeaderboardForCondition(o => o.RaceId == simulation.RaceId).ToListAsync();
             return Ok(GetLeaderbordPresentationHelper(vehicles));
         }
 
@@ -127,9 +126,8 @@ namespace DakarRally.Controllers
                 return BadRequest($"Bad vehicle super type! \nAvailable vehicle super types are:\n\n{superTypes.Join(",\n")}");
             }
             var simulation = HttpContext.Items["simulation"] as Entities.Models.Simulation;
-            var vehicles = await _repository.Vehicle.FindByCondition(o => o.RaceId == simulation.RaceId && o.VehicleType.SuperType == superType)
-                .Include(o => o.VehicleStatistic).OrderBy(o => o.VehicleStatistic.FinishTime).ThenByDescending(o => o.VehicleStatistic.Distance)
-                .ToListAsync();
+            var vehicles = await _repository.Vehicle
+                .LeaderboardForCondition(o => o.RaceId == simulation.RaceId && o.VehicleType.SuperType == superType).ToListAsync();
             return Ok(GetLeaderbordPresentationHelper(vehicles));
         }
 
