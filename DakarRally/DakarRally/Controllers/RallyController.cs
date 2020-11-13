@@ -41,7 +41,7 @@ namespace DakarRally.Controllers
 
             _repository.Race.Create(race);
             await _repository.SaveAsync();
-            return Created("",race.ToDTO());
+            return Created("", race.ToDTO());
         }
 
         [HttpPost]
@@ -60,7 +60,7 @@ namespace DakarRally.Controllers
         public async Task<IActionResult> UpdateVehicle([FromBody] VehicleDTO vehicleDTO)
         {
             var vehicle = await _repository.Vehicle.FindByCondition(o => o.Id == vehicleDTO.Id).FirstOrDefaultAsync();
-            if(vehicle == null)
+            if (vehicle == null)
             {
                 return NotFound($"Vehicle with id:{vehicleDTO.Id} does not exist.");
             }
@@ -86,7 +86,7 @@ namespace DakarRally.Controllers
         [HttpGet("{id:int:min(1)}")]
         public async Task<IActionResult> StartRace(int id)
         {
-            
+
             var race = await _repository.Race.FindByCondition(o => o.Id == id).FirstOrDefaultAsync();
             if (race == null)
             {
@@ -135,11 +135,11 @@ namespace DakarRally.Controllers
         public async Task<IActionResult> GetVehicleStatistics(int vehicleId)
         {
             var vehicle = await _repository.Vehicle.FindByCondition(o => o.Id == vehicleId).Include(o => o.VehicleStatistic).FirstOrDefaultAsync();
-            if(vehicle == null)
+            if (vehicle == null)
             {
                 return BadRequest($"Vehicle with id:{vehicleId} does not exist.");
             }
-            
+
             return Ok(vehicle.ToStatisticDTO());
         }
 
@@ -148,6 +148,18 @@ namespace DakarRally.Controllers
         {
             var vehicles = await _repository.Vehicle.FindVehicle(findVehicleParams).ToListAsync();
             return Ok(vehicles.Select(o => o.ToDTO()));
+        }
+
+        [HttpGet("{raceId:int:min(1)}")]
+        public async Task<IActionResult> GetRaceStatus(int raceId)
+        {
+            var race = await _repository.Race.FindByCondition(o => o.Id == raceId).FirstOrDefaultAsync();
+            if (race == null)
+            {
+                return NotFound($"Race with id:{raceId} does not exist.");
+            }
+
+            return Ok(await _repository.Race.GetRaceStatus(raceId));
         }
 
 
