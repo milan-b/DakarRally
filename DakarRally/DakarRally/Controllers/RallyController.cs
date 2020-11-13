@@ -143,6 +143,13 @@ namespace DakarRally.Controllers
             return Ok(vehicle.ToStatisticDTO());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> FindVehicles([FromQuery] FindVehicleParams findVehicleParams)
+        {
+            var vehicles = await _repository.Vehicle.FindVehicle(findVehicleParams).ToListAsync();
+            return Ok(vehicles.Select(o => o.ToDTO()));
+        }
+
 
         #region Helpers
 

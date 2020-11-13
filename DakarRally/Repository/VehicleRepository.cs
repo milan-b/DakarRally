@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.DataTransferObjects;
+using Entities.Extensions;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +37,7 @@ namespace Repository
                 (string.IsNullOrEmpty(findVehicleParams.Status) || string.Equals(v.VehicleStatistic.Status.ToLower(), findVehicleParams.Status.ToLower())) &&
                 (findVehicleParams.ManucaturingDate == null || v.ManucaturingDate == findVehicleParams.ManucaturingDate) &&
                 (findVehicleParams.Distance == null || ((int)v.VehicleStatistic.Distance) == findVehicleParams.Distance)
-            );
+            ).AsNoTracking().Sort(findVehicleParams.OrderBy);
         }
 
     }
