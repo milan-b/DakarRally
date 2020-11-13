@@ -42,5 +42,31 @@ namespace Entities.Extensions
             dbVehicle.TeamName = vehicle.TeamName;
             dbVehicle.ManucaturingDate = vehicle.ManucaturingDate;
         }
+
+        public static VehicleStatisticDTO ToStatisticDTO(this Vehicle vehicle)
+        {
+            return new VehicleStatisticDTO
+            {
+                Distance = vehicle.VehicleStatistic.Distance,
+                Malfunctions = vehicle.VehicleStatistic.Malfunctions,
+                Status = vehicle.VehicleStatistic.Status,
+                FinishTime = vehicle.VehicleStatistic.FinishTime
+            };
+        }
+
+        public static LeaderbordItemDTO ToLeaderboardDTO(this Vehicle vehicle, int position)
+        {
+            return new LeaderbordItemDTO
+            {
+                Position = position,
+                Distance = vehicle.VehicleStatistic.Distance,
+                Malfunctions = vehicle.VehicleStatistic.Malfunctions,
+                Status = vehicle.VehicleStatistic.Status,
+                FinishTime = vehicle.VehicleStatistic.FinishTime,
+                TeamName = vehicle.TeamName,
+                Model = vehicle.Model,
+                Type = vehicle.VehicleTypeName
+            };
+        }
     }
 }

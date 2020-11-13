@@ -59,7 +59,7 @@ namespace DakarRally.Controllers
         [ServiceFilter(typeof(VehicleValidationFilter))]
         public async Task<IActionResult> UpdateVehicle([FromBody] VehicleDTO vehicleDTO)
         {
-            var vehicle = _repository.Vehicle.FindByCondition(o => o.Id == vehicleDTO.Id).FirstOrDefault();
+            var vehicle = await _repository.Vehicle.FindByCondition(o => o.Id == vehicleDTO.Id).FirstOrDefaultAsync();
             if(vehicle == null)
             {
                 return NotFound($"Vehicle with id:{vehicleDTO.Id} does not exist.");
@@ -73,7 +73,7 @@ namespace DakarRally.Controllers
         [HttpDelete("{id:int:min(1)}")]
         public async Task<IActionResult> RemoveVehicle(int id)
         {
-            var vehicle = _repository.Vehicle.FindByCondition(o => o.Id == id).FirstOrDefault();
+            var vehicle = await _repository.Vehicle.FindByCondition(o => o.Id == id).FirstOrDefaultAsync();
             if (vehicle == null)
             {
                 return NotFound($"Vehicle with id:{id} does not exist.");
@@ -87,7 +87,7 @@ namespace DakarRally.Controllers
         public async Task<IActionResult> StartRace(int id)
         {
             
-            var race = _repository.Race.FindByCondition(o => o.Id == id).FirstOrDefault();
+            var race = await _repository.Race.FindByCondition(o => o.Id == id).FirstOrDefaultAsync();
             if (race == null)
             {
                 return NotFound($"Race with id:{id} does not exist.");
@@ -133,24 +133,24 @@ namespace DakarRally.Controllers
             return Ok(GetLeaderbordPresentationHelper(vehicles));
         }
 
-        
+        [HttpGet("{vehicleId:int:min(1)}")]
+        public async Task<IActionResult> GetVehicleStatistics(int vehicleId)
+        {
+            var vehicle = await _repository.Vehicle.FindByCondition(o => o.Id == vehicleId).Include(o => o.VehicleStatistic).FirstOrDefaultAsync();
+            if(vehicle == null)
+            {
+                return BadRequest($"Vehicle with id:{vehicleId} does not exist.");
+            }
+            
+            return Ok(vehicle.ToStatisticDTO());
+        }
 
 
         #region Helpers
 
         private List<LeaderbordItemDTO> GetLeaderbordPresentationHelper(List<Vehicle> vehicles)
         {
-            return vehicles.Select((item, index) => new LeaderbordItemDTO
-            {
-                Position = index + 1,
-                Distance = item.VehicleStatistic.Distance,
-                Malfunctions = item.VehicleStatistic.Malfunctions,
-                Status = item.VehicleStatistic.Status,
-                FinishTime = item.VehicleStatistic.FinishTime,
-                TeamName = item.TeamName,
-                Model = item.Model,
-                Type = item.VehicleTypeName
-            }).ToList();
+            return vehicles.Select((item, index) => item.ToLeaderboardDTO(index + 1)).ToList();
         }
         #endregion
 
