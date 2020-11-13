@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "9b945d04-0208-403e-a42d-ee596ec113e2",
+		"name": "Dakar Rally",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateRace",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"year\": 2020}"
+				},
+				"url": "http://localhost:5000/rally/CreateRace"
+			},
+			"response": []
+		},
+		{
+			"name": "AddVehicleToRace",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"TeamName\": \"HTEC\",\n\t\"Model\": \"Lada\",\n\t\"ManucaturingDate\": \"2007-06-01\",\n\t\"VehicleType\":\"terrainCar\",\n\t\"RaceId\": 1\n}"
+				},
+				"url": "http://localhost:5000/rally/AddVehicleToRace"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateVehicle",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Id\": 1,\n\t\"TeamName\": \"Milan\",\n\t\"Model\": \"Lada\",\n\t\"ManucaturingDate\": \"2007-06-01\",\n\t\"VehicleType\":\"sportsCar\",\n\t\"RaceId\": 1\n}"
+				},
+				"url": "http://localhost:5000/rally/UpdateVehicle"
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveVehicle",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": "http://localhost:5000/rally/RemoveVehicle/2"
+			},
+			"response": []
+		},
+		{
+			"name": "StartRace",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/rally/StartRace/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GetLeaderboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/rally/GetLeaderboard"
+			},
+			"response": []
+		},
+		{
+			"name": "GetLeaderboard for type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/rally/GetLeaderboard/car"
+			},
+			"response": []
+		},
+		{
+			"name": "GetVehicleStatistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/rally/GetVehicleStatistics/1"
+			},
+			"response": []
+		},
+		{
+			"name": "FindVehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/rally/FindVehicles?Status=Running&OrderBy=teamName desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"rally",
+						"FindVehicles"
+					],
+					"query": [
+						{
+							"key": "Team",
+							"value": "htec",
+							"disabled": true
+						},
+						{
+							"key": "Model",
+							"value": "Lada",
+							"disabled": true
+						},
+						{
+							"key": "Status",
+							"value": "Running"
+						},
+						{
+							"key": "ManucaturingDate",
+							"value": "2007-06-01T00:00:00",
+							"disabled": true
+						},
+						{
+							"key": "Distance",
+							"value": "41",
+							"disabled": true
+						},
+						{
+							"key": "OrderBy",
+							"value": "teamName desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRaceStatus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/rally/GetRaceStatus/1"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
