@@ -11,7 +11,7 @@ namespace Entities.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (AllowableValues?.Contains(value?.ToString()) == true)
+            if (value == null || AllowableValues?.Contains(value?.ToString()) == true)
             {
                 return ValidationResult.Success;
             }
