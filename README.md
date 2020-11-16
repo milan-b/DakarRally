@@ -15,4 +15,4 @@ dotnet run
 
 ### Notes
 	* If system goes down while simulation is running, simulation will continue to execute when system gets up again.
-	* I didn't have a time to write tests.
+	* There are some tests on branch feature/tests.
