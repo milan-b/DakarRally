@@ -29,5 +29,17 @@ namespace DakarRally.IntregrationTests
             Assert.Contains("Year is required", responseContent); 
         }
 
+        [Fact]
+        public async Task CreateRace_SentWrongModel_ReturnsRaceDTO()
+        {
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, "/Rally/CreateRace");
+            postRequest.Content = new StringContent(JsonConvert.SerializeObject(new { year = 2020 }), Encoding.UTF8, "application/json");
+            var response = await _client.SendAsync(postRequest);
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Assert.Contains("year", responseContent);
+            Assert.Contains("id", responseContent);
+        }
+
     }
 }

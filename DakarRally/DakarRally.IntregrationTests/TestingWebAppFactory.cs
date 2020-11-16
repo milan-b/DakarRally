@@ -2,6 +2,7 @@
 using Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,7 +24,9 @@ public class TestingWebAppFactory<T> : WebApplicationFactory<Startup>
                 services.Remove(descriptor);
             }
 
-            services.AddDbContext<RepositoryContext>(o => o.UseSqlite("DataSource=:memory:"));
+            var inMemorySqlite = new SqliteConnection("Data Source=:memory:");
+            inMemorySqlite.Open();
+            services.AddDbContext<RepositoryContext>(o => o.UseSqlite(inMemorySqlite));
 
             var sp = services.BuildServiceProvider();
 
