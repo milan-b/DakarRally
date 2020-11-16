@@ -13,3 +13,5 @@ DakarRally/DakarRally/db/localdb.db-shm
 DakarRally/DakarRally/db/localdb.db-wal
 DakarRally/Simulation/bin/
 DakarRally/Simulation/obj/
+DakarRally/DakarRally.Tests/bin/
+DakarRally/DakarRally.Tests/obj/
